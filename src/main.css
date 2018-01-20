@@ -1,0 +1,18 @@
+/*
+  the same colors we use in our js code
+*/
+:root {
+  --color-black: #000000;
+  --color-cyan: #009688;
+  --color-gray: #6A6A6A;
+  --color-white: #E8E1E1;
+  --color-orange: #FB5521;
+}
+
+.main-wrapper {
+  display: flex;
+  background-color: var(--color-gray);
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}

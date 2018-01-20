@@ -1,0 +1,29 @@
+{
+  "name": "ping-pong",
+  "version": "0.0.1",
+  "description": "Ping pong game written in typescript",
+  "main": "index.js",
+  "repository": "https://github.com/moonbrv/ts-game-ping-pong.git",
+  "author": "Dmytro Palamarchuk <moonbrv@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "poi ./src/index.ts",
+    "build": "poi build ./src/index.ts"
+  },
+  "poi": {
+    "presets": [
+      "typescript"
+    ],
+    "html": {
+      "title": "Ping-Pong",
+      "template": "./src/index.ejs"
+    }
+  },
+  "devDependencies": {
+    "poi": "^9.6.12",
+    "poi-preset-typescript": "^9.0.2",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {}
+}
