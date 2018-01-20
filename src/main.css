@@ -1,3 +1,6 @@
+/*
+  the same colors we use in our js code
+*/
 :root {
   --color-black: #000000;
   --color-cyan: #009688;
@@ -8,13 +11,8 @@
 
 .main-wrapper {
   display: flex;
-  background-color: var(--color-black);
+  background-color: var(--color-gray);
   height: 100%;
   align-items: center;
   justify-content: center;
-}
-
-.game-canvas {
-  width: 600px;
-  height: 400px;
 }
