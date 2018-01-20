@@ -10,7 +10,12 @@ enum ColorPalette {
 }
 
 enum Size {
-  Ball = 10
+  Speed = 3,
+  Ball = 10,
+  PlayerWidth = 10,
+  PlayerHeight = 100,
+  InitialOffsetX = 20,
+  InitialOffsetY = 40
 }
 
 // const colors = {
@@ -48,8 +53,8 @@ class Rectangle {
   private _position: Vector
   private _size: Vector
 
-  constructor (w: number = 0, h: number = 0) {
-    this._position = new Vector()
+  constructor (w: number = 0, h: number = 0, initX: number = 0, initY: number = 0) {
+    this._position = new Vector(initX, initY)
     this._size = new Vector(w, h)
   }
 
@@ -96,19 +101,44 @@ class Ball extends Rectangle {
   }
 }
 
+class Player extends Rectangle {
+  private _score: number
+  constructor (initX: number = 0, initY: number = 0) {
+    super(Size.PlayerWidth, Size.PlayerHeight, initX, initY)
+  }
+
+  get score(): number {
+    return this._score
+  }
+
+  updateScore () {
+    this._score = this._score + 1
+  }
+}
+
 class PingPongGame {
   private _canvas: HTMLCanvasElement
   private _context: CanvasRenderingContext2D
   private _ball: Ball
   private _lastUpdateTime: number
+  private _players: Player[]
 
   constructor (canvas: HTMLCanvasElement) {
     this._canvas = canvas
     this._context = canvas.getContext('2d')
     this._ball = new Ball()
     this._lastUpdateTime = 0
-    this.ball.velocity.x = 2
-    this.ball.velocity.y = 2
+    this._players = [
+      new Player(Size.InitialOffsetX, Size.InitialOffsetY),
+      new Player(
+        this.canvas.width - Size.InitialOffsetX - Size.PlayerWidth,
+        this.canvas.height - Size.InitialOffsetY - Size.PlayerHeight
+      )
+    ]
+
+    this.ball.velocity.x = Size.Speed
+    this.ball.velocity.y = Size.Speed
+
   }
 
   get canvas(): HTMLCanvasElement {
@@ -131,6 +161,18 @@ class PingPongGame {
     this._lastUpdateTime = miliseconds
   }
 
+  get players (): Player[] {
+    return this._players
+  }
+
+  get player1 (): Player {
+    return this._players[0]
+  }
+
+  get player2 (): Player {
+    return this._players[1]
+  }
+
   updateCanvas ():void {
     this.context.fillStyle = ColorPalette.Black
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
@@ -150,13 +192,17 @@ class PingPongGame {
     }
   }
 
+  drawPlayers (players: Player[]): void {
+    players.forEach(player => this.drawRectangle(player))
+  }
+
   updateElementsPositions = (dt: number): void => {
     this.ball.updatePosition(dt)
-
     this.checkBallMoveDirection(this.ball)
 
     this.updateCanvas()
     this.drawRectangle(this.ball)
+    this.drawPlayers(this.players)
   }
 
   updateGame = (miliseconds: number): void => {
