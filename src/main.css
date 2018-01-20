@@ -1,0 +1,20 @@
+:root {
+  --color-black: #000000;
+  --color-cyan: #009688;
+  --color-gray: #6A6A6A;
+  --color-white: #E8E1E1;
+  --color-orange: #FB5521;
+}
+
+.main-wrapper {
+  display: flex;
+  background-color: var(--color-black);
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-canvas {
+  width: 600px;
+  height: 400px;
+}
